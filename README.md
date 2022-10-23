@@ -26,8 +26,8 @@ Problem was due to I forgot to actually include the libs instead of just
 providing a path to look for them.
 
 ### Links
-https://dev.to/megazear7/google-calendar-api-integration-made-easy-2a68
-https://gist.github.com/LindaLawton/cff75182aac5fa42930a09f58b63a309?permalink_comment_id=4232119#gistcomment-4232119
-https://developers.google.com/identity/protocols/oauth2/service-account#httprest_1
-https://stackoverflow.com/questions/22077802/simple-c-example-of-doing-an-http-post-and-consuming-the-response
-https://blog.andrewmadsen.com/2020/06/22/building-openssl-for.html
+- https://dev.to/megazear7/google-calendar-api-integration-made-easy-2a68
+- https://gist.github.com/LindaLawton/cff75182aac5fa42930a09f58b63a309?permalink_comment_id=4232119#gistcomment-4232119
+- https://developers.google.com/identity/protocols/oauth2/service-account#httprest_1
+- https://stackoverflow.com/questions/22077802/simple-c-example-of-doing-an-http-post-and-consuming-the-response
+- https://blog.andrewmadsen.com/2020/06/22/building-openssl-for.html
