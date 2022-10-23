@@ -14,18 +14,20 @@
 #     http://willhaley.com/blog/generate-jwt-with-bash/
 ###################################################
 _generate_jwt() {
-    declare scope="https://www.googleapis.com/auth/calendar.readonly" aud="https://oauth2.googleapis.com/token" \
+    declare json="${1:?Error: Give service json file contents}" \
+        scope="https://www.googleapis.com/auth/calendar.readonly" \
+        aud="https://oauth2.googleapis.com/token" \
         header='{"alg":"RS256","typ":"JWT"}' \
-        algo="256" scope payload_data iss exp iat rsa_secret signed_content sign
+        algo="256" payload_data iss exp iat rsa_secret signed_content sign
 
-    if iss="XXXXX" &&
-        rsa_secret="XXXXX"; then
+    if iss="$(jq -r .client_email "${json}")" &&
+        rsa_secret="$(jq -r .private_key "${json}")"; then
         rsa_secret="$(printf "%b\n" "${rsa_secret}")"
     else
         printf "Error: Invalid service account file.\n" && return 1
     fi
 
-    iat="1665746734" exp="$((iat + 3400))"
+    iat="$(printf "%(%s)T\\n" "-1")" exp="$((iat + 3600))"
 
     b64enc() { : "$(openssl enc -base64 -A)" && : "${_//+/-}" && : "${_//\//_}" && printf "%s\n" "${_//=/}"; }
 
@@ -40,4 +42,4 @@ _generate_jwt() {
     return 0
 }
 
-_generate_jwt
+_generate_jwt $1
