@@ -4,9 +4,18 @@
 #include <openssl/err.h>
 #include <openssl/bio.h>
 
-#define APIKEY "YOUR_API_KEY"
-#define HOST "example.com"
+#define HOST "www.googleapis.com"
 #define PORT "443"
+
+/* https://developers.google.com/calendar/api/v3/reference/events/list */
+#define CALENDAR_ID ""
+#define QUERY_TIME_MIN "timeMin=2022-10-23T00:00:00Z"
+#define QUERY_TIME_MAX "timeMax=2022-10-23T23:59:59Z"
+#define PATH "/calendar/v3/calendars/" CALENDAR_ID "/events?" \
+        QUERY_TIME_MIN "&" QUERY_TIME_MAX
+
+/* https://developers.google.com/identity/protocols/oauth2/service-account */
+#define TOKEN ""
 
 int main() {
     int size;
@@ -14,11 +23,11 @@ int main() {
     BIO* bio;
     /* SSL* ssl; */
     SSL_CTX* ctx;
-    char* write_buf = "POST / HTTP/1.1\r\n"
-                      "Host: " HOST "\r\n"
-                      /* "Authorization: Basic " APIKEY "\r\n" */
-                      "Connection: close\r\n"
-                      "\r\n";
+    char* write_buf = "GET " PATH " HTTP/1.1\n"
+                      "Host: " HOST "\n"
+                      "Authorization: Bearer " TOKEN "\r\n"
+                      "Connection: close\n"
+                      "\n";
 
     SSL_library_init();
 
